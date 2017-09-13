@@ -6,7 +6,7 @@ import PlayerController from '../scripts/player/PlayerController';
 
 export default new GameScene(
     demoTileset,
-    WorldGenerator.CreateBasicWorld(4, 4, 1, true),
+    WorldGenerator.CreateBasicWorld(8, 4, 2, true),
     [
         new GameObject(
             'player',

@@ -1,13 +1,20 @@
 import Map from 'scenes/Map';
 
 export default class WorldGenerator {
+    //Does not generate actual map yet
     static CreateBasicWorld(width, height, depth, asMap) {
         let actualMap = [
             [
-                [1,1,1,1],
-                [1,2,2,1],
-                [1,2,2,1],
-                [1,1,1,1],
+                [3,3,3,3,3,3,3,3],
+                [3,3,3,3,3,3,3,3],
+                [3,3,3,3,3,3,3,3],
+                [3,3,3,3,3,3,3,3],
+            ],
+            [
+                [1,1,1,1,1,1,1,1],
+                [1,2,2,2,1,1,1,1],
+                [1,2,2,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1],
             ]
         ];
 
