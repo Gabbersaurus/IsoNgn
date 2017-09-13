@@ -1,12 +1,12 @@
 import GameScene from 'scenes/GameScene';
 import GameObject from 'games/GameObject';
-import WorldGenerator from 'scenes/WorldGenerator';
+import FancyWorldGenerator from './FancyWorldGenerator';
 import demoTileset from '../tilesets/demoTileset';
 import PlayerController from '../scripts/player/PlayerController';
 
 export default new GameScene(
     demoTileset,
-    WorldGenerator.CreateBasicWorld(4, 4, 1, true),
+    FancyWorldGenerator.CreateBasicWorld(4, 4, 1, true),
     [
         new GameObject(
             'player',
