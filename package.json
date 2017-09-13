@@ -1,0 +1,25 @@
+{
+  "name": "isongn",
+  "version": "1.0.0",
+  "description": "A HTML5 Canvas isometric game and rendering engine",
+  "main": "source/core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress --colors --watch",
+    "build": "webpack --optimize-minimize"
+  },
+  "author": "p.bouwhuis5@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "file-loader": "^0.11.2",
+    "finalhandler": "^1.0.4",
+    "serve-static": "^1.12.4",
+    "webpack": "^3.5.5"
+  }
+}
