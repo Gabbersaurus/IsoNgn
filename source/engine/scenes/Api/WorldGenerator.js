@@ -1,4 +1,4 @@
-import Map from 'scenes/Map';
+import Map from 'scenes/Api/Map';
 
 export default class WorldGenerator {
     //Does not generate actual map yet

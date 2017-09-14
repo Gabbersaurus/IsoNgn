@@ -1,11 +1,11 @@
-import GameScene from 'scenes/GameScene';
-import GameObject from 'games/GameObject';
-import WorldGenerator from 'scenes/WorldGenerator';
-import demoTileset from '../tilesets/demoTileset';
+import GameScene from 'scenes/Api/GameScene';
+import GameObject from 'entities/Api/GameObject';
+import WorldGenerator from 'scenes/Api/WorldGenerator';
+import DemoTileSet from '../tilesets/DemoTileSet';
 import PlayerController from '../scripts/player/PlayerController';
 
 export default new GameScene(
-    demoTileset,
+    DemoTileSet,
     WorldGenerator.CreateBasicWorld(8, 4, 2, true),
     [
         new GameObject(

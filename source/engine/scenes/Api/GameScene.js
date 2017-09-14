@@ -1,6 +1,6 @@
 export default class GameScene {
-    constructor(tileset, map, gameObjects) {   
-        this.tileset = tileset;
+    constructor(tileSet, map, gameObjects) {   
+        this.tileSet = tileSet;
         this.map = map;
         this.gameObjects = gameObjects;
     }

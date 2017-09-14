@@ -45,6 +45,7 @@ module.exports = {
         modules: [
             path.resolve('./node_modules'),
             path.resolve('./source/engine'),
+            path.resolve('./source/'),
         ]
     },
 };

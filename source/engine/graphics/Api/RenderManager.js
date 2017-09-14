@@ -1,6 +1,6 @@
-import settings from '../../settings.json';
-import SceneManager from 'scenes/SceneManager';
-import ImageLoader from 'graphics/ImageLoader';
+import settings from 'settings.json';
+import SceneManager from 'scenes/Api/SceneManager';
+import ImageLoader from 'graphics/Api/ImageLoader';
 
 class RenderManager {
     initialise(canvas) {
@@ -50,23 +50,23 @@ class RenderManager {
                     for (let z = 0; z <= depth; z++) {
                         let tile = SceneManager.currentScene.map.actualMap[z][y][x];
                         if(tile !== 0) {
-                            let tileset = SceneManager.currentScene.tileset;
-                            let tileObject = SceneManager.currentScene.tileset.tiles[tile];
+                            let tileSet = SceneManager.currentScene.tileSet;
+                            let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
                             let image = ImageLoader.getImage(tileObject.spriteSheet);
-                            let addedWidthForY = y * tileset.tileWidth / 2;
-                            let substractedHeightForX = (x * tileset.tileHeight / 4);
-                            let sunstractedHeightForZ = (z * tileset.tileHeight / 2);
+                            let addedWidthForY = y * tileSet.tileWidth / 2;
+                            let substractedHeightForX = (x * tileSet.tileHeight / 4);
+                            let sunstractedHeightForZ = (z * tileSet.tileHeight / 2);
 
                             this.context.drawImage(
                                 image,
                                 tileObject.startPositionX,
                                 tileObject.startPositionY,
-                                tileset.tileWidth,
-                                tileset.tileHeight,
-                                100 + x * tileset.tileWidth / 2 + addedWidthForY,
-                                300 + y * tileset.tileHeight / 4 - substractedHeightForX - sunstractedHeightForZ,
-                                tileset.tileWidth,
-                                tileset.tileHeight,
+                                tileSet.tileWidth,
+                                tileSet.tileHeight,
+                                100 + x * tileSet.tileWidth / 2 + addedWidthForY,
+                                300 + y * tileSet.tileHeight / 4 - substractedHeightForX - sunstractedHeightForZ,
+                                tileSet.tileWidth,
+                                tileSet.tileHeight,
                             );
                         }
                     }

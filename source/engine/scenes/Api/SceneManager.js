@@ -1,6 +1,6 @@
 import ConfigManager from 'ConfigManager';
-import settings from '../../settings.json';
-import ImageLoader from 'graphics/ImageLoader';
+import settings from 'settings.json';
+import ImageLoader from 'graphics/Api/ImageLoader';
 
 class SceneManager {
     initialise() {
@@ -22,7 +22,7 @@ class SceneManager {
             this.gameLoop = null;
         }
 
-        var scene = require('../../games/' + settings.game + '/scenes/' + sceneName + '.js');
+        var scene = require('games/' + settings.game + '/scenes/' + sceneName + '.js');
 
         if(!scene) {
             console.log('scene not found');
@@ -32,7 +32,7 @@ class SceneManager {
         this.currentScene = scene;
         
         //Wait for image assets to load and then activate all the gameobject behaviours.
-        ImageLoader.loadImages(scene.tileset.getAllImagePaths()).then(() => this.loadBehavioursAndInjectGameObject());
+        ImageLoader.loadImages(scene.tileSet.getAllImagePaths()).then(() => this.loadBehavioursAndInjectGameObject());
     }
 
     executeUpdateBehaviours() {

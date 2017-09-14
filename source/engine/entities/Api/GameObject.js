@@ -1,4 +1,4 @@
-import Transform from 'games/Transform';
+import Transform from 'entities/Transform';
 
 export default class GameObject {
     constructor (name, position, behaviours) {

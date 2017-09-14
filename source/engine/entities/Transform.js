@@ -1,8 +1,8 @@
+import Vector3 from 'entities/Api/Vector3';
+
 export default class Transform {
     constructor(x, y, z, gameObject) {
         this.gameObject = gameObject;
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.position = new Vector3(x, y, z);
     }
 }
