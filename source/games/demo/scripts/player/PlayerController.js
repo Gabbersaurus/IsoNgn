@@ -1,5 +1,5 @@
-import GameBehaviour from 'entities/Api/GameBehaviour';
-import SceneManager from 'scenes/Api/SceneManager';
+import GameBehaviour from 'entities/api/GameBehaviour';
+import SceneManager from 'scenes/api/SceneManager';
 
 export default class PlayerController extends GameBehaviour {
     start() {

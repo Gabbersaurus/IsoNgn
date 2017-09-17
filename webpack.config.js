@@ -1,4 +1,5 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const path = require('path');
 
 module.exports = {
@@ -37,6 +38,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new WebpackCleanupPlugin(),
         new CopyWebpackPlugin.default([
             { from: './source/html/index.html', to: './'},
         ])

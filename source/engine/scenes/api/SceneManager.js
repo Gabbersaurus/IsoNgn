@@ -1,6 +1,7 @@
+
 import ConfigManager from 'ConfigManager';
 import settings from 'settings.json';
-import ImageLoader from 'graphics/Api/ImageLoader';
+import ImageLoader from 'graphics/api/ImageLoader';
 
 class SceneManager {
     initialise() {

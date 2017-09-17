@@ -1,4 +1,4 @@
-import Vector3 from 'entities/Api/Vector3';
+import Vector3 from 'entities/api/Vector3';
 
 export default class Transform {
     constructor(x, y, z, gameObject) {

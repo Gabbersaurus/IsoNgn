@@ -1,5 +1,5 @@
-import TileSet from 'graphics/Api/TileSet';
-import Tile from 'graphics/Api/Tile';
+import TileSet from 'graphics/api/TileSet';
+import Tile from 'graphics/api/Tile';
 import demoTileSetGraphic from '../graphics/tileSets/demo.png'
 
 export default new TileSet(

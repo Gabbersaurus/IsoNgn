@@ -1,6 +1,6 @@
 import settings from 'settings.json';
-import SceneManager from 'scenes/Api/SceneManager';
-import ImageLoader from 'graphics/Api/ImageLoader';
+import SceneManager from 'scenes/api/SceneManager';
+import ImageLoader from 'graphics/api/ImageLoader';
 
 class RenderManager {
     initialise(canvas) {
