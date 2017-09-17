@@ -54,14 +54,15 @@ class SceneManager {
         for (let i = 0; i < gameObjectsLength; i++) {
             let gameObject = this.currentScene.gameObjects[i];
             let gameObjectBehavioursLength = gameObject.behaviours.length;
-            
-            for (let i = 0; i < gameObjectsLength; i++) {
+
+            for (let i = 0; i < gameObjectBehavioursLength; i++) {
                 let gameBehaviour = gameObject.behaviours[i];
                 gameBehaviour.gameObject = gameObject;
                 this.currentGameBehaviours.push(gameBehaviour);
                 gameBehaviour.start();
             }
         }
+        
 
         this.gameLoop = setInterval(() => this.executeUpdateBehaviours(), 1000/1);
         this.active = true;

@@ -1,6 +1,7 @@
 import settings from 'settings.json';
 import SceneManager from 'scenes/api/SceneManager';
 import ImageLoader from 'graphics/api/ImageLoader';
+import CameraManager from 'graphics/api/CameraManager';
 
 class RenderManager {
     initialise(canvas) {
@@ -41,6 +42,7 @@ class RenderManager {
         if(SceneManager.active) {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+            let cameraPosition = CameraManager.getCameraPosition();
             let width = SceneManager.currentScene.map.width - 1;
             let height = SceneManager.currentScene.map.height - 1;
             let depth = SceneManager.currentScene.map.depth - 1;

@@ -38,7 +38,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new WebpackCleanupPlugin(),
+        new WebpackCleanupPlugin({
+            exclude: ["index.html"],
+        }),
         new CopyWebpackPlugin.default([
             { from: './source/html/index.html', to: './'},
         ])
