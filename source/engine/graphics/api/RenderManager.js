@@ -42,7 +42,8 @@ class RenderManager {
         if(SceneManager.active) {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-            let cameraPosition = CameraManager.getCameraPosition();
+            let tileSet = SceneManager.currentScene.tileSet;
+            let cameraOffset = this.getActualCameraOffset();
             let width = SceneManager.currentScene.map.width - 1;
             let height = SceneManager.currentScene.map.height - 1;
             let depth = SceneManager.currentScene.map.depth - 1;
@@ -52,21 +53,18 @@ class RenderManager {
                     for (let z = 0; z <= depth; z++) {
                         let tile = SceneManager.currentScene.map.actualMap[z][y][x];
                         if(tile !== 0) {
-                            let tileSet = SceneManager.currentScene.tileSet;
                             let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
                             let image = ImageLoader.getImage(tileObject.spriteSheet);
-                            let addedWidthForY = y * tileSet.tileWidth / 2;
-                            let substractedHeightForX = (x * tileSet.tileHeight / 4);
-                            let sunstractedHeightForZ = (z * tileSet.tileHeight / 2);
-
+                            let positionAsTile = this.getActualPosition(x, y, z);
+                            
                             this.context.drawImage(
                                 image,
                                 tileObject.startPositionX,
                                 tileObject.startPositionY,
                                 tileSet.tileWidth,
                                 tileSet.tileHeight,
-                                100 + x * tileSet.tileWidth / 2 + addedWidthForY,
-                                300 + y * tileSet.tileHeight / 4 - substractedHeightForX - sunstractedHeightForZ,
+                                positionAsTile.x + cameraOffset.x,
+                                positionAsTile.y + cameraOffset.y,
                                 tileSet.tileWidth,
                                 tileSet.tileHeight,
                             );
@@ -75,6 +73,46 @@ class RenderManager {
                 }
             }
             
+        }
+    }
+
+    getActualCameraOffset() {
+        if(SceneManager.active) {
+            let cameraPosition = CameraManager.getCameraPosition();
+            let positionAsTile = this.getActualPosition(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+            let offsetX = (this.canvas.width / 2) - positionAsTile.x;
+            let offsetY = (this.canvas.height / 2) - positionAsTile.y;
+
+            return {
+                x: offsetX,
+                y: offsetY
+            }
+        }
+        
+        return {
+            x: 0,
+            y: 0,
+        }
+    }
+
+    getActualPosition(x, y, z) {
+        if(SceneManager.active) {
+            let tileSet = SceneManager.currentScene.tileSet;
+            let addedWidthForY = y * tileSet.tileWidth / 2;
+            let substractedHeightForX = (x * tileSet.tileHeight / 4);
+            let substractedHeightForZ = (z * tileSet.tileHeight / 2);
+            let actualPositionX = x * tileSet.tileWidth / 2 + addedWidthForY;
+            let actualPositionY = y * tileSet.tileHeight / 4 - substractedHeightForX - substractedHeightForZ;
+
+            return {
+                x: actualPositionX,
+                y: actualPositionY
+            }
+        }
+        
+        return {
+            x: 0,
+            y: 0,
         }
     }
 }

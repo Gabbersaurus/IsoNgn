@@ -1,6 +1,7 @@
 import Transform from 'entities/Transform';
 
 export default class GameObject {
+    //Todo: object ipv alle parameters!
     constructor (name, position, components, behaviours) {
         this.name = name;
         this.transform = new Transform(position.x, position.y, position.z, this);

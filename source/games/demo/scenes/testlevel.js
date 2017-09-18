@@ -24,9 +24,9 @@ export default new GameScene(
         new GameObject(
             'camera',
             {
-                x: 5,
-                y: 5,
-                z: 5,
+                x: 10,
+                y: 10,
+                z: 0,
             },
             [
                 new Camera(true)
