@@ -24,7 +24,7 @@ class SceneManager {
         }
 
         var scene = require('games/' + settings.game + '/scenes/' + sceneName + '.js');
-
+        
         if(!scene) {
             console.log('scene not found');
             return;
@@ -49,10 +49,11 @@ class SceneManager {
     }
 
     loadBehavioursAndInjectGameObject() {
-        let gameObjectsLength = this.currentScene.gameObjects.length;
+        let gameObjectKeys = Object.keys(this.currentScene.gameObjects);
+        let gameObjectsKeysLength = gameObjectKeys.length;
 
-        for (let i = 0; i < gameObjectsLength; i++) {
-            let gameObject = this.currentScene.gameObjects[i];
+        for (let i = 0; i < gameObjectsKeysLength; i++) {
+            let gameObject = this.currentScene.gameObjects[gameObjectKeys[i]];
             let gameObjectBehavioursLength = gameObject.behaviours.length;
 
             for (let i = 0; i < gameObjectBehavioursLength; i++) {

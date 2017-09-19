@@ -1,12 +1,21 @@
 import Transform from 'entities/Transform';
+import Vector3 from 'entities/api/Vector3';
 
 export default class GameObject {
     //Todo: object ipv alle parameters!
-    constructor (name, position, components, behaviours) {
-        this.name = name;
-        this.transform = new Transform(position.x, position.y, position.z, this);
-        this.components = components;
-        this.behaviours = behaviours;
+    constructor (parameters) {
+        if(!parameters.name) {
+            console.log('Making GameObject undefined because of invalid or missing parameters');
+
+            return null;
+        }
+
+        let position = parameters.position;
+        this.name = parameters.name;
+        
+        this.transform = new Transform(parameters.position ? parameters.position : Vector3.zero, this);
+        this.components = parameters.components ? parameters.components : [];
+        this.behaviours = parameters.behaviours ? parameters.behaviours : [];
 
         this.injectGameObjectInComponents();
     }

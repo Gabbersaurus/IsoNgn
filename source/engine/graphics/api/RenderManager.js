@@ -72,16 +72,18 @@ class RenderManager {
                     }
                 }
             }
-            
+
+            this.drawDebugCrosshair();
         }
     }
 
     getActualCameraOffset() {
         if(SceneManager.active) {
+            let tileSet = SceneManager.currentScene.tileSet;
             let cameraPosition = CameraManager.getCameraPosition();
             let positionAsTile = this.getActualPosition(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-            let offsetX = (this.canvas.width / 2) - positionAsTile.x;
-            let offsetY = (this.canvas.height / 2) - positionAsTile.y;
+            let offsetX = (this.canvas.width / 2) - positionAsTile.x - (tileSet.tileWidth / 2);
+            let offsetY = (this.canvas.height / 2) - positionAsTile.y - (tileSet.tileHeight / 2);
 
             return {
                 x: offsetX,
@@ -114,6 +116,17 @@ class RenderManager {
             x: 0,
             y: 0,
         }
+    }
+
+    drawDebugCrosshair() {
+        this.context.beginPath();
+        this.context.moveTo(0, this.canvas.height / 2);
+        this.context.lineTo(this.canvas.width, this.canvas.height / 2);
+        this.context.stroke();
+        this.context.beginPath();
+        this.context.moveTo(this.canvas.width / 2, 0);
+        this.context.lineTo(this.canvas.width / 2, this.canvas.height);
+        this.context.stroke();
     }
 }
 

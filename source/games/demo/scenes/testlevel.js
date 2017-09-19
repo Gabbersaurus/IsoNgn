@@ -1,37 +1,28 @@
-import GameScene from 'scenes/Api/GameScene';
-import GameObject from 'entities/Api/GameObject';
-import WorldGenerator from 'scenes/Api/WorldGenerator';
+import GameScene from 'scenes/api/GameScene';
+import GameObject from 'entities/api/GameObject';
+import WorldGenerator from 'scenes/api/WorldGenerator';
 import demoTileSet from '../tilesets/demoTileSet';
 import PlayerController from '../scripts/player/PlayerController';
 import Camera from 'entities/api/components/Camera';
+import Vector3 from 'entities/api/Vector3';
 
 export default new GameScene(
     demoTileSet,
-    WorldGenerator.CreateBasicWorld(8, 4, 2, true),
+    WorldGenerator.CreateBasicWorld(50, 50, 3, true),
     [
-        new GameObject(
-            'player',
-            {
-                x: 0,
-                y: 0,
-                z: 0,
-            },
-            [],
-            [
+        new GameObject({
+            name: 'Player',
+            position: new Vector3(0, 0, 0),
+            behaviours: [
                 new PlayerController()
             ]
-        ),
-        new GameObject(
-            'camera',
-            {
-                x: 10,
-                y: 10,
-                z: 0,
-            },
-            [
+        }),
+        new GameObject({
+            name: 'camera',
+            position: new Vector3(25, 25, 1),
+            components: [
                 new Camera(true)
-            ],
-            []
-        )
+            ]
+        })
     ]
 );
