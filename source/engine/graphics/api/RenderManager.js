@@ -54,13 +54,13 @@ class RenderManager {
                         let tile = SceneManager.currentScene.map.actualMap[z][y][x];
                         if(tile !== 0) {
                             let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
-                            let image = ImageLoader.getImage(tileObject.spriteSheet);
+                            let image = ImageLoader.getImage(tileObject.image);
                             let positionAsTile = this.getActualPosition(x, y, z);
                             
                             this.context.drawImage(
                                 image,
-                                tileObject.startPositionX,
-                                tileObject.startPositionY,
+                                tileObject.column,
+                                tileObject.row,
                                 tileSet.tileWidth,
                                 tileSet.tileHeight,
                                 positionAsTile.x + cameraOffset.x,

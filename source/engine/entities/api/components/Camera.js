@@ -1,16 +1,15 @@
 import CameraManager from 'graphics/api/CameraManager';
+import Component from 'entities/Component';
 
-export default class Camera {
+export default class Camera extends Component {
     constructor (activeOnStart) {
+        super(() => {
+            if(this.activeOnStart) {
+                this.setActive();
+            }
+        });
+
         this.activeOnStart = activeOnStart;  
-    }
-
-    initialise(gameObject) {
-        this.gameObject = gameObject;
-
-        if(this.activeOnStart) {
-            this.setActive();
-        }
     }
 
     setActive() {

@@ -16,8 +16,8 @@ export default class TileSet {
             let tile = this.tiles[tilesKeys[i]];
             
             if(tile) {
-                tile.startPositionX *= this.tileWidth;
-                tile.startPositionY *= this.tileHeight;
+                tile.column *= this.tileWidth;
+                tile.row *= this.tileHeight;
             }
         }
     }
@@ -30,8 +30,8 @@ export default class TileSet {
         for (let i = 0; i < tilesKeysLength; i++) {
             let tile = this.tiles[tilesKeys[i]];
             
-            if(tile && paths.indexOf(tile.spriteSheet) == -1) {
-                paths.push(tile.spriteSheet);
+            if(tile && paths.indexOf(tile.image) == -1) {
+                paths.push(tile.image);
             }
         }
 

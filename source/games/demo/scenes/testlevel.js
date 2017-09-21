@@ -4,6 +4,7 @@ import WorldGenerator from 'scenes/api/WorldGenerator';
 import demoTileSet from '../tilesets/demoTileSet';
 import PlayerController from '../scripts/player/PlayerController';
 import Camera from 'entities/api/components/Camera';
+import SpriteRenderer from 'entities/api/components/SpriteRenderer';
 import Vector3 from 'entities/api/Vector3';
 
 export default new GameScene(
@@ -13,6 +14,9 @@ export default new GameScene(
         new GameObject({
             name: 'Player',
             position: new Vector3(0, 0, 0),
+            components: [
+                new SpriteRenderer()
+            ],
             behaviours: [
                 new PlayerController()
             ]

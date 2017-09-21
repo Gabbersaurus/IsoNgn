@@ -1,7 +1,7 @@
 export default class Tile {
-    constructor(startPositionX, startPositionY, spriteSheet) {
-        this.startPositionX = startPositionX;
-        this.startPositionY = startPositionY;
-        this.spriteSheet = spriteSheet;
+    constructor(column, row, image) {
+        this.column = column;
+        this.row = row;
+        this.image = image;
     }
 }
