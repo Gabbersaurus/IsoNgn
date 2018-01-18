@@ -1,4 +1,3 @@
-
 import ConfigManager from 'ConfigManager';
 import settings from 'settings.json';
 import ImageLoader from 'graphics/api/ImageLoader';
@@ -18,20 +17,20 @@ class SceneManager {
         this.currentGameBehaviours = [];
         this.currentScene = null;
 
-        if(this.gameLoop != null) {
+        if (this.gameLoop != null) {
             clearInterval(this.gameLoop);
             this.gameLoop = null;
         }
 
-        var scene = require('games/' + settings.game + '/scenes/' + sceneName + '.js');
-        
-        if(!scene) {
+        let scene = require('games/' + settings.game + '/scenes/' + sceneName + '.js');
+
+        if (!scene) {
             console.log('scene not found');
             return;
         }
 
         this.currentScene = scene;
-        
+
         //Wait for image assets to load and then activate all the gameobject behaviours.
         ImageLoader.loadImages(scene.tileSet.getAllImagePaths()).then(() => this.loadBehavioursAndInjectGameObject());
     }
@@ -42,7 +41,7 @@ class SceneManager {
         for (let i = 0; i < currentGameBehavioursLength; i++) {
             let gameBehaviour = this.currentGameBehaviours[i];
 
-            if(gameBehaviour.update) {
+            if (gameBehaviour.update) {
                 gameBehaviour.update();
             }
         }
@@ -63,9 +62,9 @@ class SceneManager {
                 gameBehaviour.start();
             }
         }
-        
 
-        this.gameLoop = setInterval(() => this.executeUpdateBehaviours(), 1000/1);
+
+        this.gameLoop = setInterval(() => this.executeUpdateBehaviours(), 1000 / 30);
         this.active = true;
     }
 }

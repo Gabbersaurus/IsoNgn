@@ -1,5 +1,5 @@
 export default class Sprite {
     constructor(row) {
-        this.spriteObject = spriteObject;
+        //this.spriteObject = spriteObject;
     }
 }

@@ -3,46 +3,49 @@ const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const path = require('path');
 
 module.exports = {
-    entry: "./source/core.js",
+    entry: './source/core.js',
     output: {
-        path: __dirname + "/build/",
-        filename: "game.js"
+        path: __dirname + '/build/',
+        filename: 'game.js'
     },
     module: {
         rules: [
-          {
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['env'],
-                plugins: [
-                    "add-module-exports"
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: [
+                            'add-module-exports'
+                        ]
+                    }
+                }
+            },
+            {
+                test: /\.(png)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[hash].[ext]',
+                            outputPath: 'images/'
+                        }
+                    }
                 ]
-              }
             }
-          },
-          {
-            test: /\.(png)$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                    name: '[hash].[ext]',
-                    outputPath: 'images/'
-                }  
-              }
-            ]
-          }
         ]
+    },
+    devServer: {
+        contentBase: './build'
     },
     plugins: [
         new WebpackCleanupPlugin({
-            exclude: ["index.html"],
+            exclude: ['index.html'],
         }),
         new CopyWebpackPlugin.default([
-            { from: './source/html/index.html', to: './'},
+            {from: './source/html/index.html', to: './'},
         ])
     ],
     resolve: {

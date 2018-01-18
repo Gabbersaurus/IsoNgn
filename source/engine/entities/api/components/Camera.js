@@ -2,14 +2,14 @@ import CameraManager from 'graphics/api/CameraManager';
 import Component from 'entities/Component';
 
 export default class Camera extends Component {
-    constructor (activeOnStart) {
+    constructor(activeOnStart) {
         super(() => {
-            if(this.activeOnStart) {
+            if (this.activeOnStart) {
                 this.setActive();
             }
         });
 
-        this.activeOnStart = activeOnStart;  
+        this.activeOnStart = activeOnStart;
     }
 
     setActive() {

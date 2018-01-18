@@ -1,7 +1,6 @@
 import "babel-polyfill";
-import RenderManager from 'graphics/api/RenderManager';
-import SceneManager from 'scenes/api/SceneManager';
 import settings from 'settings.json';
+import Engine from 'Engine';
 
-RenderManager.initialise(document.getElementById(settings.canvasId));
-SceneManager.initialise();
+Engine.Graphics.RenderManager.initialise(document.getElementById(settings.canvasId));
+Engine.Scenes.SceneManager.initialise();

@@ -1,7 +1,7 @@
 import GameObject from 'entities/api/GameObject';
 
 export default class GameScene {
-    constructor(tileSet, map, gameObjects) {   
+    constructor(tileSet, map, gameObjects) {
         this.tileSet = tileSet;
         this.map = map;
         this.gameObjects = this.indexGameObjects(gameObjects);
@@ -9,9 +9,9 @@ export default class GameScene {
 
     indexGameObjects(gameObjects) {
         let gameObjectsObject = {};
-        var gameObjectsLength = gameObjects.length;
-        
-        for (var i = 0; i < gameObjectsLength; i++) {
+        let gameObjectsLength = gameObjects.length;
+
+        for (let i = 0; i < gameObjectsLength; i++) {
             let gameObject = gameObjects[i];
 
             if (!(gameObject instanceof GameObject)) {
@@ -31,7 +31,7 @@ export default class GameScene {
     }
 
     getGameObject(name) {
-        if(!this.gameObjects.hasOwnProperty(name)) {
+        if (!this.gameObjects.hasOwnProperty(name)) {
             console.log("GameObject " + name + " was not found in the current scene");
             return null;
         }

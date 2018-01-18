@@ -1,31 +1,31 @@
-import GameScene from 'scenes/api/GameScene';
-import GameObject from 'entities/api/GameObject';
-import WorldGenerator from 'scenes/api/WorldGenerator';
-import demoTileSet from '../tilesets/demoTileSet';
+import DemoTileSet from '../tilesets/DemoTileSet';
 import PlayerController from '../scripts/player/PlayerController';
-import Camera from 'entities/api/components/Camera';
-import SpriteRenderer from 'entities/api/components/SpriteRenderer';
-import Vector3 from 'entities/api/Vector3';
+import CameraController from '../scripts/player/CameraController';
+import Yellowblob from '../spritesets/Yellowblob';
+import Engine from 'Engine';
 
-export default new GameScene(
-    demoTileSet,
-    WorldGenerator.CreateBasicWorld(50, 50, 3, true),
+export default new Engine.Scenes.GameScene(
+    DemoTileSet,
+    Engine.Scenes.WorldGenerator.createBasicWorld(50, 50, 3, true),
     [
-        new GameObject({
+        new Engine.Entities.GameObject({
             name: 'Player',
-            position: new Vector3(0, 0, 0),
+            position: new Engine.Entities.Vector3(0, 0, 0),
             components: [
-                new SpriteRenderer()
+                new Engine.Components.SpriteRenderer(Yellowblob)
             ],
             behaviours: [
                 new PlayerController()
             ]
         }),
-        new GameObject({
+        new Engine.Entities.GameObject({
             name: 'camera',
-            position: new Vector3(25, 25, 1),
+            position: new Engine.Entities.Vector3(0, 5, 0),
             components: [
-                new Camera(true)
+                new Engine.Components.Camera(true)
+            ],
+            behaviours: [
+                new CameraController()
             ]
         })
     ]

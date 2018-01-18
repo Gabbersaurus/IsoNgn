@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --progress --colors --watch",
+    "dev": "webpack-dev-server --open",
     "production": "webpack --optimize-minimize"
   },
   "author": "p.bouwhuis5@gmail.com",
@@ -18,9 +19,10 @@
     "babel-preset-env": "^1.6.0",
     "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.11.2",
-    "finalhandler": "^1.0.4",
-    "serve-static": "^1.12.4",
     "webpack": "^3.5.5",
     "webpack-cleanup-plugin": "^0.5.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.0"
   }
 }
