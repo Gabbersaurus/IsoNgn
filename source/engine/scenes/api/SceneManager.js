@@ -1,6 +1,7 @@
 import ConfigManager from 'ConfigManager';
 import settings from 'settings.json';
 import ImageLoader from 'graphics/api/ImageLoader';
+import Input from 'input/Input';
 
 class SceneManager {
     initialise() {
@@ -17,7 +18,7 @@ class SceneManager {
         this.currentGameBehaviours = [];
         this.currentScene = null;
 
-        if (this.gameLoop != null) {
+        if (this.gameLoop !== null) {
             clearInterval(this.gameLoop);
             this.gameLoop = null;
         }
@@ -36,6 +37,8 @@ class SceneManager {
     }
 
     executeUpdateBehaviours() {
+        Input.updatePressedKeys();
+
         //Rewrite once I think of a better solution.
         let currentGameBehavioursLength = this.currentGameBehaviours.length;
         for (let i = 0; i < currentGameBehavioursLength; i++) {
