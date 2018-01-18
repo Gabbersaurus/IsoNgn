@@ -24,13 +24,5 @@ export default class CameraController extends Engine.Entities.GameBehaviour {
             this.gameObject.transform.position.x -= 2;
             this.gameObject.transform.position.y += 2;
         });
-
-        Engine.Input.getKeyUp('jump', () => {
-            alert('pressed a key up');
-        });
-
-        Engine.Input.getKey('jump', () => {
-            console.log('blaaaa'); //every tick
-        });
     }
 }

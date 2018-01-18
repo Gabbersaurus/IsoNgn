@@ -1,3 +1,4 @@
 {
-    "defaultScene": "testlevel"
+    "defaultScene": "testlevel",
+    "title": "Demo game"
 }

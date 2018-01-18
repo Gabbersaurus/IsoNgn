@@ -4,7 +4,6 @@
   "description": "A HTML5 Canvas isometric game and rendering engine",
   "main": "source/core.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --progress --colors --watch",
     "dev": "webpack-dev-server --open",
     "production": "webpack --optimize-minimize"
@@ -12,17 +11,15 @@
   "author": "p.bouwhuis5@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/preset-env": "^7.0.0-beta.38",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
     "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.11.2",
-    "webpack": "^3.5.5",
-    "webpack-cleanup-plugin": "^0.5.1"
-  },
-  "devDependencies": {
+    "webpack": "^3.10.0",
+    "webpack-cleanup-plugin": "^0.5.1",
     "webpack-dev-server": "^2.11.0"
   }
 }

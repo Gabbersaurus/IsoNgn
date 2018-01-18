@@ -7,7 +7,9 @@ export default class PlayerController extends Engine.Entities.GameBehaviour {
     }
 
     update() {
-        Engine.Scenes.SceneManager.currentScene.map.actualMap[1][0][0] = this.test ? 0 : 1;
-        this.test = !this.test;
+        Engine.Input.getKeyDown('jump', () => {
+            this.test = !this.test;
+            this.gameObject.getComponent('SpriteRenderer').setState(this.test ? 'default' : 'flipped');
+        });
     }
 }

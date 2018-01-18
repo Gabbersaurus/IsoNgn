@@ -5,14 +5,14 @@ import CameraManager from 'graphics/api/CameraManager';
 
 class RenderManager {
     initialise(canvas) {
-        if(!canvas) {
+        if (!canvas) {
             console.log("No canvas with id '" + settings.canvasId + "' found.");
             return;
         }
 
         let context = canvas.getContext("2d");
 
-        if(!context) {
+        if (!context) {
             console.log("Could not get canvas context.");
             return;
         }
@@ -29,7 +29,9 @@ class RenderManager {
     }
 
     render() {
-        requestAnimationFrame( () => { this.render() } );
+        requestAnimationFrame(() => {
+            this.render()
+        });
         this.renderWholeMap();
     }
 
@@ -39,36 +41,21 @@ class RenderManager {
     }
 
     renderWholeMap() {
-        if(SceneManager.active) {
+        if (SceneManager.active) {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
             let tileSet = SceneManager.currentScene.tileSet;
+            let spriteRenderers = SceneManager.currentIndexedSpriteRenderers;
             let cameraOffset = this.getActualCameraOffset();
             let width = SceneManager.currentScene.map.width - 1;
             let height = SceneManager.currentScene.map.height - 1;
             let depth = SceneManager.currentScene.map.depth - 1;
-            
+
             for (let y = 0; y <= height; y++) {
                 for (let x = width; x >= 0; x--) {
                     for (let z = 0; z <= depth; z++) {
-                        let tile = SceneManager.currentScene.map.actualMap[z][y][x];
-                        if(tile !== 0) {
-                            let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
-                            let image = ImageLoader.getImage(tileObject.image);
-                            let positionAsTile = this.getActualPosition(x, y, z);
-                            
-                            this.context.drawImage(
-                                image,
-                                tileObject.column,
-                                tileObject.row,
-                                tileSet.tileWidth,
-                                tileSet.tileHeight,
-                                positionAsTile.x + cameraOffset.x,
-                                positionAsTile.y + cameraOffset.y,
-                                tileSet.tileWidth,
-                                tileSet.tileHeight,
-                            );
-                        }
+                        this.renderTile(x, y, z, tileSet, cameraOffset);
+                        this.renderSprite(x, y, z, spriteRenderers, cameraOffset);
                     }
                 }
             }
@@ -77,8 +64,57 @@ class RenderManager {
         }
     }
 
+    renderSprite(x, y, z, allSpriteRenderers, cameraOffset) {
+        let positionString = x + '-' + y + '-' + z;
+
+        if (positionString in allSpriteRenderers) {
+            let spriteRenderers = allSpriteRenderers[positionString];
+            let spriteRenderersLength = spriteRenderers.length;
+
+            for (let i = 0; i < spriteRenderersLength; i++) {
+                let spriteRenderer = spriteRenderers[i];
+                let sprite = spriteRenderer.spriteSet.states[spriteRenderer.state];
+                let image = ImageLoader.getImage(sprite.image);
+                let positionAsSprite = this.getActualPosition(x, y, z);
+
+                this.context.drawImage(
+                    image,
+                    (sprite.width * sprite.column) + (sprite.width * spriteRenderer.frame),
+                    sprite.height * sprite.row,
+                    sprite.width,
+                    sprite.height,
+                    positionAsSprite.x + sprite.offsetX + cameraOffset.x,
+                    positionAsSprite.y + sprite.offsetY + cameraOffset.y,
+                    sprite.width,
+                    sprite.height
+                );
+            }
+        }
+    }
+
+    renderTile(x, y, z, tileSet, cameraOffset) {
+        let tile = SceneManager.currentScene.map.actualMap[z][y][x];
+        if (tile !== 0) {
+            let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
+            let image = ImageLoader.getImage(tileObject.image);
+            let positionAsTile = this.getActualPosition(x, y, z);
+
+            this.context.drawImage(
+                image,
+                tileObject.column,
+                tileObject.row,
+                tileSet.tileWidth,
+                tileSet.tileHeight,
+                positionAsTile.x + cameraOffset.x,
+                positionAsTile.y + cameraOffset.y,
+                tileSet.tileWidth,
+                tileSet.tileHeight,
+            );
+        }
+    }
+
     getActualCameraOffset() {
-        if(SceneManager.active) {
+        if (SceneManager.active) {
             let tileSet = SceneManager.currentScene.tileSet;
             let cameraPosition = CameraManager.getCameraPosition();
             let positionAsTile = this.getActualPosition(cameraPosition.x, cameraPosition.y, cameraPosition.z);
@@ -90,7 +126,7 @@ class RenderManager {
                 y: offsetY
             }
         }
-        
+
         return {
             x: 0,
             y: 0,
@@ -98,7 +134,7 @@ class RenderManager {
     }
 
     getActualPosition(x, y, z) {
-        if(SceneManager.active) {
+        if (SceneManager.active) {
             let tileSet = SceneManager.currentScene.tileSet;
             let addedWidthForY = y * tileSet.tileWidth / 2;
             let substractedHeightForX = (x * tileSet.tileHeight / 4);
@@ -111,7 +147,7 @@ class RenderManager {
                 y: actualPositionY
             }
         }
-        
+
         return {
             x: 0,
             y: 0,

@@ -2,15 +2,15 @@ import settings from 'settings.json';
 
 class ConfigManager {
     constructor() {
-        let mainSettings = require('../games/' + settings.game + '/configs/main.json');
+        let main = require('../games/' + settings.game + '/configs/main.json');
         let controls = require('../games/' + settings.game + '/configs/controls.json');
 
-        if (!mainSettings || !controls) {
+        if (!main || !controls) {
             //todo: exceptions
             alert('One or more configs are missing');
         }
 
-        this.mainSettings = mainSettings;
+        this.main = main;
         this.controls = controls;
     }
 }

@@ -1,6 +1,7 @@
-import "babel-polyfill";
-import settings from 'settings.json';
+import 'babel-polyfill';
 import Engine from 'engine/Engine';
 
-Engine.Graphics.RenderManager.initialise(document.getElementById(settings.canvasId));
+document.getElementById('title').innerHTML = Engine.ConfigManager.main.title;
+
+Engine.Graphics.RenderManager.initialise(document.getElementById('game'));
 Engine.Scenes.SceneManager.initialise();
