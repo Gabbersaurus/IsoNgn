@@ -1,5 +1,6 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -46,7 +47,11 @@ module.exports = {
         }),
         new CopyWebpackPlugin.default([
             {from: './source/html/index.html', to: './'},
-        ])
+        ]),
+        new UglifyJsPlugin({
+            sourceMap: true,
+            mangle: false
+        })
     ],
     resolve: {
         modules: [

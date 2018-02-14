@@ -17,6 +17,20 @@ export default class SpriteSet {
         }
     }
 
+    setCorrectStartPositions() {
+        let statesKeys = Object.keys(this.states);
+        let statesKeysLength = statesKeys.length;
+
+        for (let i = 0; i < statesKeysLength; i++) {
+            let sprite = this.states[statesKeys[i]];
+
+            if (sprite) {
+                sprite.column *= sprite.width;
+                sprite.row *= sprite.height;
+            }
+        }
+    }
+
     getImagePaths() {
         let statesKeys = Object.keys(this.states);
         let statesKeysLength = statesKeys.length;

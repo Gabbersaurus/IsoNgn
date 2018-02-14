@@ -1,5 +1,5 @@
 export default class Sprite {
-    constructor(width, height, column, row, frames, image, offsetX, offsetY,) {
+    constructor(width, height, column, row, frames, image, offsetX, offsetY) {
         this.width = width;
         this.height = height;
         this.column = column;
@@ -7,6 +7,6 @@ export default class Sprite {
         this.frames = frames;
         this.image = image;
         this.offsetX = offsetX || 0;
-        this.offsetY = offsetY || -16;
+        this.offsetY = offsetY || 0;
     }
 }

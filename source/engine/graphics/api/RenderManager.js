@@ -24,7 +24,6 @@ class RenderManager {
         window.addEventListener('resize', () => this.resizeCanvas(), false);
         //Set initial resolution and canvas size
         this.resizeCanvas();
-
         this.render();
     }
 
@@ -60,7 +59,7 @@ class RenderManager {
                 }
             }
 
-            this.drawDebugCrosshair();
+            //this.drawDebugCrosshair();
         }
     }
 
@@ -79,12 +78,12 @@ class RenderManager {
 
                 this.context.drawImage(
                     image,
-                    (sprite.width * sprite.column) + (sprite.width * spriteRenderer.frame),
-                    sprite.height * sprite.row,
+                    sprite.column + (sprite.width * spriteRenderer.frame),
+                    sprite.row,
                     sprite.width,
                     sprite.height,
-                    positionAsSprite.x + sprite.offsetX + cameraOffset.x,
-                    positionAsSprite.y + sprite.offsetY + cameraOffset.y,
+                    (positionAsSprite.x + sprite.offsetX ) + cameraOffset.x,
+                    (positionAsSprite.y + sprite.offsetY ) + cameraOffset.y,
                     sprite.width,
                     sprite.height
                 );
@@ -95,21 +94,77 @@ class RenderManager {
     renderTile(x, y, z, tileSet, cameraOffset) {
         let tile = SceneManager.currentScene.map.actualMap[z][y][x];
         if (tile !== 0) {
-            let tileObject = SceneManager.currentScene.tileSet.tiles[tile];
-            let image = ImageLoader.getImage(tileObject.image);
+            let tileObject = tileSet.tiles[tile];
             let positionAsTile = this.getActualPosition(x, y, z);
 
-            this.context.drawImage(
-                image,
-                tileObject.column,
-                tileObject.row,
-                tileSet.tileWidth,
-                tileSet.tileHeight,
-                positionAsTile.x + cameraOffset.x,
-                positionAsTile.y + cameraOffset.y,
-                tileSet.tileWidth,
-                tileSet.tileHeight,
-            );
+            this.renderActualTileImage(tileObject.image, positionAsTile, tileObject, tileSet, cameraOffset);
+        }
+
+        if (tileSet.shadowmap) {
+            this.renderShadow(x, y, z, tileSet, cameraOffset);
+        }
+    }
+
+    renderActualTileImage(image, positionAsTile, tileObject, tileSet, cameraOffset) {
+        let actualImage = ImageLoader.getImage(image);
+
+        this.context.drawImage(
+            actualImage,
+            tileObject.column,
+            tileObject.row,
+            tileSet.tileWidth,
+            tileSet.tileHeight,
+            positionAsTile.x + cameraOffset.x + tileObject.offsetX,
+            positionAsTile.y + cameraOffset.y + tileObject.offsetY,
+            tileSet.tileWidth,
+            tileSet.tileHeight,
+        );
+    }
+
+    renderShadow(x, y, z, tileSet, cameraOffset) {
+        let shadows = tileSet.shadowmap;
+        let map = SceneManager.currentScene.map.actualMap;
+        if (z !== 0) {
+            if (map[z][y][x] === 0) {
+                //lines
+                if (map[z][y][x - 1] && tileSet.tiles[map[z][y][x - 1]].castShadow) {
+                    let shadow = shadows.tiles['lowerLeft'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+                if (map[z][y][x + 1] && tileSet.tiles[map[z][y][x + 1]].castShadow) {
+                    let shadow = shadows.tiles['upperRight'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+
+                if (map[z][y - 1] && tileSet.tiles[map[z][y - 1][x]].castShadow) {
+                    let shadow = shadows.tiles['upperLeft'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+                if (map[z][y + 1] && tileSet.tiles[map[z][y + 1][x]].castShadow) {
+                    let shadow = shadows.tiles['lowerRight'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+                //corners
+                if (map[z][y][x + 1] === 0 && (map[z][y + 1] && map[z][y + 1][x + 1]) && tileSet.tiles[map[z][y + 1][x + 1]].castShadow) {
+                    let shadow = shadows.tiles['rightCorner'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+                if (map[z][y][x + 1] === 0 && (map[z][y - 1] && map[z][y - 1][x + 1]) && tileSet.tiles[map[z][y - 1][x + 1]].castShadow) {
+                    let shadow = shadows.tiles['upperCorner'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+                if (map[z][y - 1] && map[z][y - 1][x - 1] && tileSet.tiles[map[z][y - 1][x - 1]].castShadow) {
+                    let shadow = shadows.tiles['leftCorner'];
+                    let position = this.getActualPosition(x, y, z);
+                    this.renderActualTileImage(shadow.image, position, shadow, shadows, cameraOffset);
+                }
+            }
         }
     }
 
@@ -136,11 +191,11 @@ class RenderManager {
     getActualPosition(x, y, z) {
         if (SceneManager.active) {
             let tileSet = SceneManager.currentScene.tileSet;
-            let addedWidthForY = y * tileSet.tileWidth / 2;
-            let substractedHeightForX = (x * tileSet.tileHeight / 4);
-            let substractedHeightForZ = (z * tileSet.tileHeight / 2);
-            let actualPositionX = x * tileSet.tileWidth / 2 + addedWidthForY;
-            let actualPositionY = y * tileSet.tileHeight / 4 - substractedHeightForX - substractedHeightForZ;
+
+            let actualPositionX = ((x + y) * (tileSet.tileWidth / 2));
+            let actualPositionY = (y - x) * (tileSet.tileHeight / 4);
+            actualPositionY -= z * tileSet.tileHeight / 2; //height
+            actualPositionY -= z; //Correct gap
 
             return {
                 x: actualPositionX,

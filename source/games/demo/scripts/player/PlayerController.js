@@ -9,7 +9,7 @@ export default class PlayerController extends Engine.Entities.GameBehaviour {
     update() {
         Engine.Input.getKeyDown('jump', () => {
             this.test = !this.test;
-            this.gameObject.getComponent('SpriteRenderer').setState(this.test ? 'default' : 'flipped');
+            this.gameObject.getComponent('SpriteRenderer').setState(this.test ? 'default' : 'move');
         });
     }
 }

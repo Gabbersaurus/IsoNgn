@@ -27,7 +27,7 @@ import RenderManager from './graphics/api/RenderManager';
 import Sprite from './graphics/api/Sprite';
 import SpriteSet from './graphics/api/SpriteSet';
 import Tile from './graphics/api/Tile';
-import TileSet from './graphics/api/Tileset';
+import TileSet from './graphics/api/TileSet';
 const Graphics = {
     CameraManager,
     ImageLoader,

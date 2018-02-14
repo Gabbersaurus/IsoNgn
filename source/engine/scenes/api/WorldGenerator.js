@@ -5,22 +5,23 @@ export default class WorldGenerator {
     static createBasicWorld(width, height, depth, asMap) {
         let actualMap = [];
 
-        for (let z = 0; z <= depth; z++) {
+        for (let z = 0; z < depth; z++) {
             actualMap[z] = [];
 
-            for (let y = 0; y <= height; y++) {
+            for (let y = 0; y < height; y++) {
                 actualMap[z][y] = [];
 
-                for (let x = width; x >= 0; x--) {
-                    if (z == 0) {
+                for (let x = 0; x < width; x++) {
+                    if (z === 0) {
                         actualMap[z][y][x] = 3;
                         continue;
-                    } else if (z == 1) {
+                    } else if (z === 1) {
                         actualMap[z][y][x] = 1;
                         continue;
-                    } else if (z == 2) {
+                    } else if (z === 2) {
                         let oneToTen = Math.floor((Math.random() * 10) + 1);
-                        actualMap[z][y][x] = oneToTen == 1 ? 1 : 0;
+                        let oneToThree = Math.floor((Math.random() * 3) + 1);
+                        actualMap[z][y][x] = oneToTen === 1 ? (oneToThree === 1 ? 1 : 5) : 0;
                         continue;
                     }
 

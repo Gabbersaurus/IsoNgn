@@ -6,6 +6,9 @@ export default class SpriteRenderer extends Component {
         this.spriteSet = spriteSet;
         this.interval = null;
         this.frame = 0;
+
+        spriteSet.setCorrectStartPositions();
+
         this.setState(state || 'default');
     }
 

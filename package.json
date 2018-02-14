@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "dev": "webpack-dev-server --open",
-    "production": "webpack --optimize-minimize"
+    "production": "webpack"
   },
   "author": "p.bouwhuis5@gmail.com",
   "license": "ISC",
